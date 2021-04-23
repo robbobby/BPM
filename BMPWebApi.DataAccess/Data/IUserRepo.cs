@@ -5,5 +5,7 @@ namespace BPMWebApi.Data {
     public interface IUserRepo {
         IEnumerable<User> GetAllUsers();
         User GetUserById(int id);
+        void CreateUser(User user);
+        bool SaveChanges();
     }
 }

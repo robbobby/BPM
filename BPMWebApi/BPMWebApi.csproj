@@ -21,4 +21,8 @@
       <ProjectReference Include="..\BPMWebApi.Library\BPMWebApi.Library.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Handlers" />
+    </ItemGroup>
+
 </Project>

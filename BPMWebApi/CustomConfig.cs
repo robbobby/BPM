@@ -11,6 +11,7 @@ namespace BPMWebApi {
         public static void SetUpConfig(IServiceCollection service) {
             SetUpUserRepo(service);
         }
+        
         private static void SetUpUserRepo(IServiceCollection service) {
             service.AddScoped<IUserRepo, UserRepoAzureSql>();
         }

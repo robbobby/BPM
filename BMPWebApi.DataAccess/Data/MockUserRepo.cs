@@ -14,5 +14,11 @@ namespace BPMWebApi.Data {
         public User GetUserById(int id) {
             return new User { Id = 3, EmailAddress = "lina@hotmail.com", FirstName = "Lina", LastName = "Biel" };
         }
+        public void CreateUser(User user) {
+            throw new System.NotImplementedException();
+        }
+        public bool SaveChanges() {
+            throw new System.NotImplementedException();
+        }
     }
 }

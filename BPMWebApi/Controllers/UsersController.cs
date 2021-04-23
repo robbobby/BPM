@@ -18,20 +18,29 @@ namespace BPMWebApi.Controllers {
             _userRepo = userRepo;
         }
 
-        [Authorize]
         [HttpGet] // /api/users
         public ActionResult<IEnumerable<UserReadDto>> GetAllUsers() {
             IEnumerable<User> allUsers = _userRepo.GetAllUsers();
             return Ok(_mapper.Map<IEnumerable<UserReadDto>>(allUsers));
         }
 
+        [HttpGet("{id:int}", Name="GetUserById")] // /api/users/1
         [Authorize]
-        [HttpGet("{id:int}")] // /api/users/1
         public ActionResult<UserReadDto> GetUserById(int id) {
             User user = _userRepo.GetUserById(id);
             if(user != null)
                 return Ok(_mapper.Map<UserReadDto>(user));
             return NotFound();
+        }
+
+        [HttpPost]
+        public ActionResult<UserReadDto> CreateUser(UserCreateDto user) {
+            User userModel = _mapper.Map<User>(user);
+            _userRepo.CreateUser(userModel);
+            _userRepo.SaveChanges();
+            UserReadDto userReadDto = _mapper.Map<UserReadDto>(userModel);
+
+            return CreatedAtRoute(nameof(GetUserById), new { id = userModel.Id}, userReadDto);
         }
     }
 }

@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -18,8 +21,10 @@ namespace BPMWebApi {
             CustomConfig.SetUpConfig(services);
             CustomConfig.SetUpDatabaseAccess(services, Configuration);
             CustomConfig.SetUpAutoMapper(services);
-            services.AddAuthentication("CookieAuth").AddCookie("CookieAuth", config => {
-                config.Cookie.Name = "Some name";
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options => {
+                Configuration.Bind("JwtSettings", options);
+            }).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options => {
+                Configuration.Bind("CookieSettings", options);
             });
         }
 
@@ -33,8 +38,8 @@ namespace BPMWebApi {
 
             app.UseHttpsRedirection();
             app.UseRouting();
-            app.UseAuthentication();
             app.UseAuthorization();
+            app.UseAuthentication();
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
