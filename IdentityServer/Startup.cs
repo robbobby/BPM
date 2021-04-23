@@ -8,6 +8,7 @@ namespace IdentityServer {
         public void ConfigureServices(IServiceCollection services) {
             services.AddIdentityServer()
                 .AddInMemoryApiResources(Configuration.GetApis())
+                .AddInMemoryApiScopes(Configuration.GetScopes())
                 .AddInMemoryClients(Configuration.GetClients())
                 .AddDeveloperSigningCredential();
             services.AddControllersWithViews();
@@ -19,7 +20,6 @@ namespace IdentityServer {
             }
 
             app.UseRouting();
-
             app.UseIdentityServer();
 
             app.UseEndpoints(endpoints => {

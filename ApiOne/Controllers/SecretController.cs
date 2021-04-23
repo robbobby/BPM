@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace ApiOne.Controllers {
@@ -5,8 +6,8 @@ namespace ApiOne.Controllers {
         
         [Route("/secret")]
         [Authorize]
-        public string Index() {
-            return "Secret message from ApiOne";
+        public OkResult Index() {
+            return Ok();
         }
     }
 }

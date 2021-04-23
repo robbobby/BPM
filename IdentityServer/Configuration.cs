@@ -7,6 +7,8 @@ namespace IdentityServer {
             new List<ApiResource>() {
                 new ApiResource("ApiOne")
             };
+        
+        
 
         public static IEnumerable<Client> GetClients() =>
             new List<Client> {
@@ -16,10 +18,12 @@ namespace IdentityServer {
                         new Secret("client_secret".ToSha256())
                     },
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    AllowedScopes = {
-                        "ApiOne"
-                    }
+                    AllowedScopes = { "ApiOne" }
                 }
+            };
+        public static IEnumerable<ApiScope> GetScopes() =>
+            new List<ApiScope> {
+                new ApiScope("ApiOne")
             };
     }
 }
